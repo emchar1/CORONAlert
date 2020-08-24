@@ -5,4 +5,4 @@ Once you've cloned the project, you'll need to create an account on rapidapi.com
 
 let rapidAPIKey = "<your_api_key_here>"
 
-where your_api_key_here is a string value. The project should then recognize this new constant.
+where <your_api_key_here> is a string value. The project should then recognize this new constant.
