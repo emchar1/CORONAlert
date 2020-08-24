@@ -18,7 +18,7 @@ protocol AlertManagerDelegate {
 
 struct AlertManager {
     private let headers = [K.rapidapiHost : K.rapidapiHostValue,
-                   K.rapidapiKey : K.rapidapiKeyValue]
+                   K.rapidapiKey : rapidAPIKey]
     var delegate: AlertManagerDelegate?
 
     

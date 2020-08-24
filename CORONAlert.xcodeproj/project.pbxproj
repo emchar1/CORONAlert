@@ -20,6 +20,7 @@
 		EA78FBD124ED0F130086FD5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA78FBD024ED0F130086FD5A /* Assets.xcassets */; };
 		EA78FBD424ED0F130086FD5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA78FBD224ED0F130086FD5A /* LaunchScreen.storyboard */; };
 		EA78FBDF24ED12FD0086FD5A /* CORONAlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA78FBDE24ED12FD0086FD5A /* CORONAlertTableViewController.swift */; };
+		EAA04B7924F4724500C79574 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA04B7824F4724500C79574 /* APIKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		EA78FBD324ED0F130086FD5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA78FBD524ED0F130086FD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA78FBDE24ED12FD0086FD5A /* CORONAlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CORONAlertTableViewController.swift; sourceTree = "<group>"; };
+		EAA04B7824F4724500C79574 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				EA2D180324EE57F7000C8572 /* Constants.swift */,
+				EAA04B7824F4724500C79574 /* APIKeys.swift */,
 				EA246C2624ED228B00C74733 /* AlertManager.swift */,
 				EA246C2824EDD71F00C74733 /* APIData.swift */,
 				EA5CC8A024EE22460028F009 /* AlertModel.swift */,
@@ -185,6 +188,7 @@
 			files = (
 				EA246C2724ED228B00C74733 /* AlertManager.swift in Sources */,
 				EA78FBC824ED0F100086FD5A /* AppDelegate.swift in Sources */,
+				EAA04B7924F4724500C79574 /* APIKeys.swift in Sources */,
 				EA0B97C024F2583D00DA9BE7 /* LocationSearchTableViewController.swift in Sources */,
 				EA78FBDF24ED12FD0086FD5A /* CORONAlertTableViewController.swift in Sources */,
 				EA246C2924EDD71F00C74733 /* APIData.swift in Sources */,
