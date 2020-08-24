@@ -34,7 +34,6 @@ class CORONAlertTableViewController: UITableViewController {
     
     @IBAction func chooseLocation(_ sender: UIButton) {
         performSegue(withIdentifier: "goMap", sender: self)
-        print("Segueing into the map.")
     }
     
     @IBAction func resetLocation(_ sender: UIButton) {
