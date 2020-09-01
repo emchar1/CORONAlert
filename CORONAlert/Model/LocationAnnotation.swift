@@ -17,9 +17,9 @@ class LocationAnnotation: NSObject, MKAnnotation {
     }
     
     //Location properties
-    private let countryName: String
-    private let provinceName: String
-    private let cityName: String?
+    let countryName: String
+    let provinceName: String
+    let cityName: String?
     let riskLevel: (String, UIColor)
     let todaysCases: String
     let todaysDeaths: String

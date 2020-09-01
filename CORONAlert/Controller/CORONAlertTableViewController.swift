@@ -21,8 +21,11 @@ class CORONAlertTableViewController: UITableViewController {
     let locationManager = CLLocationManager()
     var alertManager = AlertManager()
     var alerts: [AlertModel]?
+    var filteredAlerts: [AlertModel]?
     var locationAnnotations: [LocationAnnotation]?
+    var filteredLocationAnnotations: [LocationAnnotation]?
     var closestCoordinates: Int?
+    var filteredClosestCoordinates: Int?
 
 
     override func viewDidLoad() {
@@ -75,18 +78,21 @@ class CORONAlertTableViewController: UITableViewController {
         }
     }
     
-    //Determine closest location from the list of locations in the AlertModel.
+    /**
+     Determines the closest location from the list of locations in the AlertModel.
+     - parameter location: User's current location
+     - note: This function iterates through all the AlertModel array items to get the shortest CLLocation distance from the user.
+     */
     func getClosestCoordinates(forLocation location: CLLocation?) {
         guard let myLocation = location else {
             print("Unable to determine user's location.")
             return
         }
         
-        guard let alerts = alerts else {
+        guard let alerts = alerts, let locationAnnotations = locationAnnotations else {
             print("Alerts array is still empty for some reason. Breaking out of getClosestCoordinates function.")
             return
         }
-        
         
         var shortestDistance: Double?
 
@@ -113,6 +119,46 @@ class CORONAlertTableViewController: UITableViewController {
                 }
             }
         }
+        
+        //for in-app purchases
+        guard let closestCoordinates = closestCoordinates else {
+            print("Unable to get closest coordinates.")
+            return
+        }
+        
+        filteredAlerts = alerts.filter { (alertModel: AlertModel) -> Bool in
+            if alertModel.province != "" {
+                return alertModel.province == alerts[closestCoordinates].province
+            }
+            else {
+                return alertModel.countryName == alerts[closestCoordinates].countryName
+            }
+        }
+        
+        filteredLocationAnnotations = locationAnnotations.filter{ (locationAnnotation: LocationAnnotation) -> Bool in
+            if locationAnnotation.provinceName != "" {
+                return locationAnnotation.provinceName == locationAnnotations[closestCoordinates].provinceName
+            }
+            else {
+                return locationAnnotation.countryName == locationAnnotations[closestCoordinates].countryName
+            }
+        }
+        
+        //Again???
+        if let filteredAlerts = filteredAlerts {
+            for (i, filteredAlert) in filteredAlerts.enumerated() {
+                if let latitude = filteredAlert.coordinates.latitude, let longitude = filteredAlert.coordinates.longitude {
+                    let checkCoordinates = CLLocation(latitude: latitude, longitude: longitude)
+                    let checkDistance = myLocation.distance(from: checkCoordinates)
+                    
+                    if shortestDistance == nil || checkDistance < shortestDistance! {
+                        shortestDistance = checkDistance
+                        filteredClosestCoordinates = i
+                    }
+                }
+            }
+        }
+    
     }
     
     
@@ -138,10 +184,10 @@ class CORONAlertTableViewController: UITableViewController {
             controller.delegate = self
 
             //Set the locationAnnotations[] and initialLocation on the MapViewController()
-            if let alerts = alerts, let locationAnnotations = locationAnnotations {
+            if let alerts = filteredAlerts, let locationAnnotations = filteredLocationAnnotations {
                 controller.locationAnnotations = locationAnnotations
                 
-                if let i = closestCoordinates, let latitude = alerts[i].coordinates.latitude, let longitude = alerts[i].coordinates.longitude {
+                if let i = filteredClosestCoordinates, let latitude = alerts[i].coordinates.latitude, let longitude = alerts[i].coordinates.longitude {
                     controller.initialLocation = CLLocation(latitude: latitude, longitude: longitude)
                 }
             }
@@ -162,7 +208,7 @@ extension CORONAlertTableViewController: MapViewControllerDelegate {
     }
     
     func didRefreshAlerts(_ controller: MapViewController) {
-        if let locationAnnotations = locationAnnotations, controller.locationAnnotations == nil {
+        if let locationAnnotations = filteredLocationAnnotations, controller.locationAnnotations == nil {
             controller.locationAnnotations = locationAnnotations
             controller.mapView.removeAnnotations(locationAnnotations)
             controller.mapView.addAnnotations(locationAnnotations)
@@ -219,6 +265,7 @@ extension CORONAlertTableViewController: CLLocationManagerDelegate {
             totalCasesLabel.text = "Error"
             totalDeathsLabel.text = "Error"
             closestCoordinates = nil
+            filteredClosestCoordinates = nil
 
             print("Denied.")
         }
@@ -237,6 +284,7 @@ extension CORONAlertTableViewController: CLLocationManagerDelegate {
         totalCasesLabel.text = "Error"
         totalDeathsLabel.text = "Error"
         closestCoordinates = nil
+        filteredClosestCoordinates = nil
 
         print("Error requesting location: \(error.localizedDescription)")
     }
