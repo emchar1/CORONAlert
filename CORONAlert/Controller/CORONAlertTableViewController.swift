@@ -158,12 +158,15 @@ class CORONAlertTableViewController: UITableViewController {
             }
         }
         
+        shortestDistance = nil  //reuse from above
+                
         //Again???
         if let filteredAlerts = filteredAlerts {
             for (i, filteredAlert) in filteredAlerts.enumerated() {
                 if let latitude = filteredAlert.coordinates.latitude, let longitude = filteredAlert.coordinates.longitude {
                     let checkCoordinates = CLLocation(latitude: latitude, longitude: longitude)
                     let checkDistance = myLocation.distance(from: checkCoordinates)
+                    
                     
                     if shortestDistance == nil || checkDistance < shortestDistance! {
                         shortestDistance = checkDistance
