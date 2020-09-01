@@ -37,7 +37,7 @@ class CORONAlertTableViewController: UITableViewController {
         SKPaymentQueue.default().add(self)      //DON'T FORGET THIS!!!!
         
         if isPurchased() {
-            navigationItem.setRightBarButton(nil, animated: true)
+//            navigationItem.setRightBarButton(nil, animated: true)
         }
     }
     
@@ -157,7 +157,7 @@ class CORONAlertTableViewController: UITableViewController {
                 return locationAnnotation.countryName == locationAnnotations[closestCoordinates].countryName
             }
         }
-        
+                
         shortestDistance = nil  //reuse from above
                 
         //Again???

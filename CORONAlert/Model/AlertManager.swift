@@ -101,25 +101,25 @@ struct AlertManager {
                     let cityTotalDeaths = cities.deaths
                     let cityNewCases = cities.confirmed_diff
                     let cityNewDeaths = cities.deaths_diff
-                    
-                    //Get the AlertModel for the city
-                    let model = AlertModel(dateString: dateString, countryCases: Cases(totalCases: totalCases, totalDeaths: totalDeaths, newCases: newCases, newDeaths: newDeaths), cfr: cfr, iso: iso, countryName: countryName, province: province, provinceCoordinates: Coordinates(latitudeString: provinceLat, longitudeString: provinceLong), cityName: cityName, cityCoordinates: Coordinates(latitudeString: cityLat, longitudeString: cityLong), cityCases: Cases(totalCases: cityTotalCases, totalDeaths: cityTotalDeaths, newCases: cityNewCases, newDeaths: cityNewDeaths))
-                    modelEntries.append(model)
-                    
-                    //Get the LocationAnnotation for the city
-                    if let latitude = model.cityCoordinates!.latitude, let longitude = model.cityCoordinates!.longitude {
+                                        
+                    //Only pull in the info if there's valid latitude and longitude coordinates!
+                    if let latitude = Double(cityLat ?? "error"), let longitude = Double(cityLong ?? "error") {
+                        //Get the AlertModel for the city
+                        let model = AlertModel(dateString: dateString, countryCases: Cases(totalCases: totalCases, totalDeaths: totalDeaths, newCases: newCases, newDeaths: newDeaths), cfr: cfr, iso: iso, countryName: countryName, province: province, provinceCoordinates: Coordinates(latitudeString: provinceLat, longitudeString: provinceLong), cityName: cityName, cityCoordinates: Coordinates(latitudeString: cityLat, longitudeString: cityLong), cityCases: Cases(totalCases: cityTotalCases, totalDeaths: cityTotalDeaths, newCases: cityNewCases, newDeaths: cityNewDeaths))
+                        modelEntries.append(model)
+
+                        //Get the LocationAnnotation for the city
                         let locationAnnotation = LocationAnnotation(countryName: countryName, provinceName: province, cityName: cityName, riskLevel: model.riskLevel, todaysCases: model.cityCases!.newCasesString, todaysDeaths: model.cityCases!.newDeathsString, totalCases: model.cityCases!.totalCasesString, totalDeaths: model.cityCases!.totalDeathsString, dateToday: model.dateStringFormatted, coordinate: CLLocation(latitude: latitude, longitude: longitude).coordinate)
                         annotationEntries.append(locationAnnotation)
                     }
                 }
                 
-                //Get the LocationAnnotation for the country (but not if it's a US location)
+                //Get the models for the province (state) only if there's valid latitude and longitude coordinates!
                 if data.region.cities.isEmpty {
-                    //Get the AlertModel for the country (Do I want to exclude it if it's a US location???)
-                    let model = AlertModel(dateString: dateString, countryCases: Cases(totalCases: totalCases, totalDeaths: totalDeaths, newCases: newCases, newDeaths: newDeaths), cfr: cfr, iso: iso, countryName: countryName, province: province, provinceCoordinates: Coordinates(latitudeString: provinceLat, longitudeString: provinceLong), cityName: nil, cityCoordinates: nil, cityCases: nil)
-                    modelEntries.append(model)
-
-                    if let latitude = model.provinceCoordinates.latitude, let longitude = model.provinceCoordinates.longitude {
+                    if let latitude = Double(provinceLat ?? "error"), let longitude = Double(provinceLong ?? "error") {
+                        let model = AlertModel(dateString: dateString, countryCases: Cases(totalCases: totalCases, totalDeaths: totalDeaths, newCases: newCases, newDeaths: newDeaths), cfr: cfr, iso: iso, countryName: countryName, province: province, provinceCoordinates: Coordinates(latitudeString: provinceLat, longitudeString: provinceLong), cityName: nil, cityCoordinates: nil, cityCases: nil)
+                        modelEntries.append(model)
+                        
                         let locationAnnotation = LocationAnnotation(countryName: countryName, provinceName: province, cityName: nil, riskLevel: model.riskLevel, todaysCases: model.countryCases.newCasesString, todaysDeaths: model.countryCases.newDeathsString, totalCases: model.countryCases.totalCasesString, totalDeaths: model.countryCases.totalDeathsString, dateToday: model.dateStringFormatted, coordinate: CLLocation(latitude: latitude, longitude: longitude).coordinate)
                         annotationEntries.append(locationAnnotation)
                     }

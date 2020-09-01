@@ -16,6 +16,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GGN-me-UNe">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="17"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -26,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="943" y="138"/>
         </scene>
-        <!--Alert Table View Controller-->
+        <!--CORONAlert!-->
         <scene sceneID="83Q-zR-2CF">
             <objects>
                 <tableViewController id="QNw-NC-tJU" customClass="CORONAlertTableViewController" customModule="CORONAlert" customModuleProvider="target" sceneMemberID="viewController">
@@ -264,7 +267,7 @@
                             <outlet property="delegate" destination="QNw-NC-tJU" id="vJm-L4-TQk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cZa-rb-SxS">
+                    <navigationItem key="navigationItem" title="CORONAlert!" largeTitleDisplayMode="always" id="cZa-rb-SxS">
                         <barButtonItem key="rightBarButtonItem" title="Purchase" id="LEQ-4W-K6C">
                             <connections>
                                 <action selector="makePurchase:" destination="QNw-NC-tJU" id="idR-Nt-HsN"/>
