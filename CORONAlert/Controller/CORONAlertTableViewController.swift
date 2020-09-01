@@ -34,10 +34,9 @@ class CORONAlertTableViewController: UITableViewController {
         
         alertManager.delegate = self
         alertManager.fetchAlerts(date: nil)
+        SKPaymentQueue.default().add(self)      //DON'T FORGET THIS!!!!
         
         if isPurchased() {
-            print("isPurchased = true")
-            showAllLocations()
             navigationItem.setRightBarButton(nil, animated: true)
         }
     }
@@ -132,6 +131,12 @@ class CORONAlertTableViewController: UITableViewController {
         //for in-app purchases
         guard let closestCoordinates = closestCoordinates else {
             print("Unable to get closest coordinates.")
+            return
+        }
+        
+        guard !isPurchased() else {
+            //all locations already purchased!
+            showAllLocations()
             return
         }
         
