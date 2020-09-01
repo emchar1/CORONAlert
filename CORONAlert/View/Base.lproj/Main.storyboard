@@ -264,7 +264,13 @@
                             <outlet property="delegate" destination="QNw-NC-tJU" id="vJm-L4-TQk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cZa-rb-SxS"/>
+                    <navigationItem key="navigationItem" id="cZa-rb-SxS">
+                        <barButtonItem key="rightBarButtonItem" title="Purchase" id="LEQ-4W-K6C">
+                            <connections>
+                                <action selector="makePurchase:" destination="QNw-NC-tJU" id="idR-Nt-HsN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="6IV-Hp-jg5" id="phn-z6-KnI"/>
                         <outlet property="locationLabel" destination="ogv-7E-ezN" id="pZX-gN-ybg"/>

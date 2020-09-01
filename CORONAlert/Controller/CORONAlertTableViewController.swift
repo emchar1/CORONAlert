@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import StoreKit
 
 class CORONAlertTableViewController: UITableViewController {
     @IBOutlet weak var locationLabel: UILabel!
@@ -33,7 +34,16 @@ class CORONAlertTableViewController: UITableViewController {
         
         alertManager.delegate = self
         alertManager.fetchAlerts(date: nil)
+        
+        if isPurchased() {
+            print("isPurchased = true")
+            showAllLocations()
+            navigationItem.setRightBarButton(nil, animated: true)
+        }
     }
+    
+    
+    // MARK: - Update Locations
     
     @IBAction func chooseLocation(_ sender: UIButton) {
         performSegue(withIdentifier: "goMap", sender: self)
@@ -56,7 +66,6 @@ class CORONAlertTableViewController: UITableViewController {
         }
     }
         
-    
     func attemptLocationAccess() {
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location Services has been disabled. Please enable Location Services under iPhone Settings.")
@@ -287,5 +296,61 @@ extension CORONAlertTableViewController: CLLocationManagerDelegate {
         filteredClosestCoordinates = nil
 
         print("Error requesting location: \(error.localizedDescription)")
+    }
+}
+
+
+// MARK: - In App Purchase
+
+extension CORONAlertTableViewController: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                showAllLocations()
+                SKPaymentQueue.default().finishTransaction(transaction)
+                navigationItem.setRightBarButton(nil, animated: true)
+                print("Transaction successful!")
+            case .failed:
+                if let error = transaction.error {
+                    let errorDescription = error.localizedDescription
+                    print("Transaction failed due to error: \(errorDescription)")
+                }
+                SKPaymentQueue.default().finishTransaction(transaction)
+            case .restored:
+                showAllLocations()
+                SKPaymentQueue.default().finishTransaction(transaction)
+                navigationItem.setRightBarButton(nil, animated: true)
+                print("Transaction restored.")
+            default:
+                print("Unknown transaction state.")
+            }
+        }
+    }
+    
+    func buyAllLocations() {
+        guard SKPaymentQueue.canMakePayments() else {
+            print("Unable to make payments.")
+            return
+        }
+        
+        let paymentRequest = SKMutablePayment()
+        paymentRequest.productIdentifier = productID
+        SKPaymentQueue.default().add(paymentRequest)
+    }
+    
+    func showAllLocations() {
+        UserDefaults.standard.set(true, forKey: productID)
+        filteredAlerts = alerts
+        filteredLocationAnnotations = locationAnnotations
+        filteredClosestCoordinates = closestCoordinates
+    }
+    
+    func isPurchased() -> Bool {
+        return UserDefaults.standard.bool(forKey: productID)
+    }
+    
+    @IBAction func makePurchase(_ sender: UIBarButtonItem) {
+        buyAllLocations()
     }
 }
