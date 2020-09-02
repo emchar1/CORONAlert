@@ -20,7 +20,7 @@ class LocationAnnotation: NSObject, MKAnnotation {
     let countryName: String
     let provinceName: String
     let cityName: String?
-    let riskLevel: (String, UIColor)
+    let riskLevel: (level: String, color: UIColor)
     let todaysCases: String
     let todaysDeaths: String
     let totalCases: String

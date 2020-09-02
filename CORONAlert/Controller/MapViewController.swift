@@ -93,7 +93,7 @@ extension MapViewController: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: -5)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            view.markerTintColor = annotation.riskLevel.1
+            view.markerTintColor = annotation.riskLevel.color
             view.glyphTintColor = .white
 
             //Update the content
