@@ -39,6 +39,8 @@ class CORONAlertTableViewController: UITableViewController {
         if isPurchased() {
 //            navigationItem.setRightBarButton(nil, animated: true)
         }
+        
+        getKeys()
     }
     
     
@@ -209,6 +211,30 @@ class CORONAlertTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    
+    // MARK: - Secrets.plist
+    
+    /**
+     Gets the RapidAPIKey and ProductID from the Secrets.plist file.
+     */
+    func getKeys() {
+        guard let path = Bundle.main.path(forResource: "Secret", ofType: "plist") else {
+            print("Unable to get Secret.plist")
+            return
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        let data = try! Data(contentsOf: url)
+        
+        guard let plist = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String:String] else {
+            print("Unable to get plist variable.")
+            return
+        }
+        
+        print(plist["RapidAPIKey"] ?? "No such key: RapidAPIKey")
+        print(plist["ProductID"] ?? "No such key: ProductID")
     }
 
 

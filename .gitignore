@@ -91,3 +91,4 @@ iOSInjectionProject/
 
 # CORONAlert sensitive files
 APIKeys.swift
+Secret.plist

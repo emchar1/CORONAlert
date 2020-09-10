@@ -21,6 +21,7 @@
 		EA78FBD424ED0F130086FD5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA78FBD224ED0F130086FD5A /* LaunchScreen.storyboard */; };
 		EA78FBDF24ED12FD0086FD5A /* CORONAlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA78FBDE24ED12FD0086FD5A /* CORONAlertTableViewController.swift */; };
 		EAA04B7924F4724500C79574 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA04B7824F4724500C79574 /* APIKeys.swift */; };
+		EAE3B148250AEE93000B16E1 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE3B147250AEE93000B16E1 /* Secret.plist */; };
 		EAF8238F24FE002900CA1E9E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF8238E24FE002900CA1E9E /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		EA78FBD524ED0F130086FD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA78FBDE24ED12FD0086FD5A /* CORONAlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CORONAlertTableViewController.swift; sourceTree = "<group>"; };
 		EAA04B7824F4724500C79574 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		EAE3B147250AEE93000B16E1 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		EAF8238E24FE002900CA1E9E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				EA78FBD024ED0F130086FD5A /* Assets.xcassets */,
 				EA78FBD224ED0F130086FD5A /* LaunchScreen.storyboard */,
 				EA78FBD524ED0F130086FD5A /* Info.plist */,
+				EAE3B147250AEE93000B16E1 /* Secret.plist */,
 			);
 			path = CORONAlert;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE3B148250AEE93000B16E1 /* Secret.plist in Resources */,
 				EA78FBD424ED0F130086FD5A /* LaunchScreen.storyboard in Resources */,
 				EA78FBD124ED0F130086FD5A /* Assets.xcassets in Resources */,
 				EA78FBCF24ED0F100086FD5A /* Main.storyboard in Resources */,
